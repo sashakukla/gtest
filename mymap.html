@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        html, body { height: 100%; margin: 10; padding: 10}
+        #map { height: 100% }
+        .InfoWindowContent {
+            font-size: 75%;
+        }
+    </style>
+</head>
+
+
+<body>
+<div id="map"></div>
+<script type="text/javascript">
+
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 49.444, lng: 32.059},
+            zoom: 8
+        });
+
+        var myLatLng = new google.maps.LatLng(49.444,32.059);
+//        trackMarker = new google.maps.Marker({
+//            title: 'Черкассы',
+//            label: 'A',
+//            position: myLatLng,
+//            map: map
+//        });
+        var contentString = '<div class="InfoWindowContent"><p>Отгружено 135052</p><p>Возвраты 320156</p></div>';
+        var infowindow = new google.maps.InfoWindow({
+            position: myLatLng,
+            content: contentString
+        });
+        infowindow.open(map);
+
+    }
+
+</script>
+
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEOOgpMDoc-WOn_szLIoex4VcgwgddhxQ&callback=initMap">
+</script>
+</body>
+</html>
