@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script type="text/javascript">
+
+    // This example creates circles on the map, representing populations in North
+    // America.
+
+    // First, create an object containing LatLng and population for each city.
+    var citymap = {
+        point_1: {center: {lat: 50.07963, lng: 29.91285}, sum_otgr:16986},
+        point_2: {center: {lat: 48.80865, lng: 29.98839}, sum_otgr:2794},
+        point_3: {center: {lat: 49.12073, lng: 30.07713}, sum_otgr:1828},
+        point_4: {center: {lat: 49.80617, lng: 30.10443}, sum_otgr:21751},
+        point_5: {center: {lat: 49.24639, lng: 30.11164}, sum_otgr:39138},
+        point_6: {center: {lat: 48.72454, lng: 30.19884}, sum_otgr:50068},
+        point_7: {center: {lat: 48.70170, lng: 30.21275}, sum_otgr:3908},
+        point_8: {center: {lat: 50.53625, lng: 30.23317}, sum_otgr:10952},
+        point_9: {center: {lat: 48.79646, lng: 30.28450}, sum_otgr:579},
+        point_10: {center: {lat: 50.17456, lng: 30.32209}, sum_otgr:24316},
+        point_11: {center: {lat: 48.92195, lng: 30.33154}, sum_otgr:1160},
+        point_12: {center: {lat: 49.14923, lng: 30.33291}, sum_otgr:715},
+        point_13: {center: {lat: 48.96383, lng: 30.33428}, sum_otgr:15097},
+        point_14: {center: {lat: 50.38742, lng: 30.35214}, sum_otgr:3926},
+        point_15: {center: {lat: 49.09361, lng: 30.40484}, sum_otgr:1123},
+        point_16: {center: {lat: 49.15583, lng: 30.41250}, sum_otgr:2209},
+        point_17: {center: {lat: 48.98804, lng: 30.44535}, sum_otgr:6039},
+        point_18: {center: {lat: 48.79955, lng: 30.51487}, sum_otgr:10055},
+        point_19: {center: {lat: 50.44029, lng: 30.55950}, sum_otgr:658241},
+        point_20: {center: {lat: 50.11087, lng: 30.62714}, sum_otgr:20156},
+        point_21: {center: {lat: 48.88967, lng: 30.68911}, sum_otgr:4751},
+        point_22: {center: {lat: 50.66671, lng: 30.70696}, sum_otgr:1891},
+        point_23: {center: {lat: 48.81689, lng: 30.70988}, sum_otgr:6124},
+        point_24: {center: {lat: 48.96194, lng: 30.72001}, sum_otgr:1402},
+        point_25: {center: {lat: 50.13576, lng: 30.74438}, sum_otgr:4456},
+        point_26: {center: {lat: 50.70259, lng: 30.74610}, sum_otgr:4070},
+        point_27: {center: {lat: 50.49917, lng: 30.77236}, sum_otgr:17889},
+        point_28: {center: {lat: 48.99610, lng: 30.77322}, sum_otgr:2815},
+        point_29: {center: {lat: 50.46226, lng: 30.77940}, sum_otgr:510},
+        point_30: {center: {lat: 49.25377, lng: 30.82729}, sum_otgr:8988},
+        point_31: {center: {lat: 50.48355, lng: 30.89768}, sum_otgr:3834},
+        point_32: {center: {lat: 49.13893, lng: 30.94866}, sum_otgr:1474},
+        point_33: {center: {lat: 50.34845, lng: 30.95553}, sum_otgr:24414},
+        point_34: {center: {lat: 49.07490, lng: 30.96634}, sum_otgr:87412},
+        point_35: {center: {lat: 49.01756, lng: 30.96840}, sum_otgr:871},
+        point_36: {center: {lat: 48.94203, lng: 30.98539}, sum_otgr:92894},
+        point_37: {center: {lat: 48.98340, lng: 30.99518}, sum_otgr:14928},
+        point_38: {center: {lat: 49.25205, lng: 31.00119}, sum_otgr:3834},
+        point_39: {center: {lat: 49.01911, lng: 31.05938}, sum_otgr:74142},
+        point_40: {center: {lat: 48.99782, lng: 31.06316}, sum_otgr:3337},
+        point_41: {center: {lat: 49.39968, lng: 31.09440}, sum_otgr:8518},
+        point_42: {center: {lat: 49.29119, lng: 31.11620}, sum_otgr:6329},
+        point_43: {center: {lat: 49.34715, lng: 31.11981}, sum_otgr:2797},
+        point_44: {center: {lat: 49.27145, lng: 31.14332}, sum_otgr:856},
+        point_45: {center: {lat: 49.05258, lng: 31.21319}, sum_otgr:2129},
+        point_46: {center: {lat: 49.41582, lng: 31.25628}, sum_otgr:24280},
+        point_47: {center: {lat: 49.22235, lng: 31.27121}, sum_otgr:2463},
+        point_48: {center: {lat: 49.40311, lng: 31.30777}, sum_otgr:2139},
+        point_49: {center: {lat: 49.30990, lng: 31.31910}, sum_otgr:973},
+        point_50: {center: {lat: 49.38612, lng: 31.32546}, sum_otgr:2231},
+        point_51: {center: {lat: 50.36407, lng: 31.32958}, sum_otgr:2106},
+        point_52: {center: {lat: 49.44569, lng: 31.33764}, sum_otgr:3413},
+        point_53: {center: {lat: 49.35230, lng: 31.38056}, sum_otgr:1018},
+        point_54: {center: {lat: 48.23324, lng: 31.39137}, sum_otgr:2615},
+        point_55: {center: {lat: 49.44723, lng: 31.40408}, sum_otgr:3980},
+        point_56: {center: {lat: 50.06504, lng: 31.44425}, sum_otgr:3015},
+        point_57: {center: {lat: 49.28947, lng: 31.44528}, sum_otgr:105039},
+        point_58: {center: {lat: 49.20090, lng: 31.45729}, sum_otgr:19593},
+        point_59: {center: {lat: 49.41719, lng: 31.46690}, sum_otgr:5459},
+        point_60: {center: {lat: 49.64722, lng: 31.46862}, sum_otgr:1129},
+        point_61: {center: {lat: 48.32268, lng: 31.52252}, sum_otgr:3068},
+        point_62: {center: {lat: 49.66816, lng: 31.52716}, sum_otgr:526},
+        point_63: {center: {lat: 49.34732, lng: 31.53660}, sum_otgr:17478},
+        point_64: {center: {lat: 49.05018, lng: 31.56080}, sum_otgr:13418},
+        point_65: {center: {lat: 49.57357, lng: 31.57745}, sum_otgr:770},
+        point_66: {center: {lat: 49.23677, lng: 31.59342}, sum_otgr:13490},
+        point_67: {center: {lat: 49.47710, lng: 31.62003}, sum_otgr:10983},
+        point_68: {center: {lat: 49.69992, lng: 31.70174}, sum_otgr:1922},
+        point_69: {center: {lat: 49.22321, lng: 31.71599}, sum_otgr:7137},
+        point_70: {center: {lat: 49.51795, lng: 31.73641}, sum_otgr:29279},
+        point_71: {center: {lat: 49.76755, lng: 31.73967}, sum_otgr:4374},
+        point_72: {center: {lat: 49.22390, lng: 31.78036}, sum_otgr:3888},
+        point_73: {center: {lat: 49.54576, lng: 31.79237}, sum_otgr:4234},
+        point_74: {center: {lat: 49.52688, lng: 31.81109}, sum_otgr:14249},
+        point_75: {center: {lat: 49.23437, lng: 31.81761}, sum_otgr:3021},
+        point_76: {center: {lat: 49.82489, lng: 31.83460}, sum_otgr:890},
+        point_77: {center: {lat: 49.74644, lng: 31.84439}, sum_otgr:1899},
+        point_78: {center: {lat: 49.22768, lng: 31.85143}, sum_otgr:151923},
+        point_79: {center: {lat: 49.67245, lng: 31.85280}, sum_otgr:9572},
+        point_80: {center: {lat: 49.35264, lng: 31.86791}, sum_otgr:39465},
+        point_81: {center: {lat: 49.30527, lng: 31.89228}, sum_otgr:50796},
+        point_82: {center: {lat: 49.53838, lng: 31.89846}, sum_otgr:1733},
+        point_83: {center: {lat: 49.51366, lng: 31.90893}, sum_otgr:12202},
+        point_84: {center: {lat: 49.67554, lng: 31.91563}, sum_otgr:13258},
+        point_85: {center: {lat: 49.41410, lng: 31.92267}, sum_otgr:38824},
+        point_86: {center: {lat: 49.29188, lng: 31.93949}, sum_otgr:33949},
+        point_87: {center: {lat: 49.45358, lng: 31.94944}, sum_otgr:31483},
+        point_88: {center: {lat: 49.64001, lng: 31.98824}, sum_otgr:1885},
+        point_89: {center: {lat: 49.32449, lng: 31.99270}, sum_otgr:22099},
+        point_90: {center: {lat: 49.68979, lng: 31.99991}, sum_otgr:972},
+        point_91: {center: {lat: 49.58181, lng: 32.00746}, sum_otgr:5932},
+        point_92: {center: {lat: 49.46594, lng: 32.02223}, sum_otgr:715532},
+        point_93: {center: {lat: 49.31299, lng: 32.02326}, sum_otgr:2993},
+        point_94: {center: {lat: 49.06494, lng: 32.02566}, sum_otgr:2327},
+        point_95: {center: {lat: 49.37427, lng: 32.03115}, sum_otgr:17737},
+        point_96: {center: {lat: 49.07558, lng: 32.03270}, sum_otgr:2069},
+        point_97: {center: {lat: 49.66902, lng: 32.04214}, sum_otgr:63137},
+        point_98: {center: {lat: 50.16924, lng: 32.05742}, sum_otgr:3175},
+        point_99: {center: {lat: 49.55555, lng: 32.09690}, sum_otgr:48265},
+        point_100: {center: {lat: 50.18606, lng: 32.09759}, sum_otgr:1953},
+        point_101: {center: {lat: 49.04159, lng: 32.10153}, sum_otgr:23669},
+        point_102: {center: {lat: 49.86179, lng: 32.10548}, sum_otgr:3288},
+        point_103: {center: {lat: 50.13731, lng: 32.12557}, sum_otgr:9917},
+        point_104: {center: {lat: 49.30527, lng: 32.12866}, sum_otgr:13642},
+        point_105: {center: {lat: 50.08375, lng: 32.12934}, sum_otgr:3151},
+        point_106: {center: {lat: 49.95432, lng: 32.14325}, sum_otgr:32042},
+        point_107: {center: {lat: 49.70009, lng: 32.14445}, sum_otgr:1808},
+        point_108: {center: {lat: 49.37565, lng: 32.15629}, sum_otgr:18847},
+        point_109: {center: {lat: 48.06141, lng: 32.15973}, sum_otgr:2209},
+        point_110: {center: {lat: 49.75862, lng: 32.16265}, sum_otgr:5218},
+        point_111: {center: {lat: 49.27145, lng: 32.16505}, sum_otgr:4488},
+        point_112: {center: {lat: 49.60756, lng: 32.16762}, sum_otgr:785},
+        point_113: {center: {lat: 49.04486, lng: 32.18153}, sum_otgr:14602},
+        point_114: {center: {lat: 49.33016, lng: 32.21500}, sum_otgr:14949},
+        point_115: {center: {lat: 50.03036, lng: 32.23200}, sum_otgr:2242},
+        point_116: {center: {lat: 48.50344, lng: 32.26015}, sum_otgr:89543},
+        point_117: {center: {lat: 49.21154, lng: 32.26410}, sum_otgr:6165},
+        point_118: {center: {lat: 49.25480, lng: 32.27886}, sum_otgr:6595},
+        point_119: {center: {lat: 49.30921, lng: 32.28126}, sum_otgr:7108},
+        point_120: {center: {lat: 49.95329, lng: 32.29929}, sum_otgr:10309},
+        point_121: {center: {lat: 50.00702, lng: 32.30101}, sum_otgr:4929},
+        point_122: {center: {lat: 49.67829, lng: 32.30856}, sum_otgr:23828},
+        point_123: {center: {lat: 49.97629, lng: 32.31216}, sum_otgr:2419},
+        point_124: {center: {lat: 49.51692, lng: 32.33620}, sum_otgr:7623},
+        point_125: {center: {lat: 49.63674, lng: 32.34049}, sum_otgr:3340},
+        point_126: {center: {lat: 49.59967, lng: 32.35336}, sum_otgr:2919},
+        point_127: {center: {lat: 49.74970, lng: 32.35920}, sum_otgr:1979},
+        point_128: {center: {lat: 49.28947, lng: 32.36486}, sum_otgr:28173},
+        point_129: {center: {lat: 49.94539, lng: 32.37104}, sum_otgr:2615},
+        point_130: {center: {lat: 49.57683, lng: 32.37722}, sum_otgr:3190},
+        point_131: {center: {lat: 49.55383, lng: 32.38375}, sum_otgr:3423},
+        point_132: {center: {lat: 49.80806, lng: 32.40040}, sum_otgr:2317},
+        point_133: {center: {lat: 49.44860, lng: 32.46391}, sum_otgr:3049},
+        point_134: {center: {lat: 49.61580, lng: 32.48468}, sum_otgr:4470},
+        point_135: {center: {lat: 49.77201, lng: 32.49550}, sum_otgr:1583},
+        point_136: {center: {lat: 49.44912, lng: 32.51163}, sum_otgr:2672},
+        point_137: {center: {lat: 49.39813, lng: 32.58819}, sum_otgr:3416},
+        point_138: {center: {lat: 49.60876, lng: 32.63815}, sum_otgr:1329},
+        point_139: {center: {lat: 49.55675, lng: 32.65978}, sum_otgr:701},
+        point_140: {center: {lat: 49.65752, lng: 32.66493}, sum_otgr:1954},
+        point_141: {center: {lat: 49.73442, lng: 32.71969}, sum_otgr:3849},
+        point_142: {center: {lat: 49.04056, lng: 32.76947}, sum_otgr:2137},
+        point_143: {center: {lat: 49.05086, lng: 32.95761}, sum_otgr:5326},
+        point_144: {center: {lat: 50.01182, lng: 33.00053}, sum_otgr:2232},
+        point_145: {center: {lat: 49.04554, lng: 33.20738}, sum_otgr:36589},
+        point_146: {center: {lat: 49.11146, lng: 33.28445}, sum_otgr:2177},
+        point_147: {center: {lat: 49.08949, lng: 33.42899}, sum_otgr:3449},
+        point_148: {center: {lat: 49.96530, lng: 33.60975}, sum_otgr:691}
+
+    };
+    var map;
+    function initMap() {
+        // Create the map.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 49.444, lng: 32.059},
+            zoom: 8
+        });
+
+
+        // Construct the circle for each value in citymap.
+        // Note: We scale the area of the circle based on the population.
+        for (var city in citymap) {
+            // Add the circle for this city to the map.
+            var cityCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map,
+                center: citymap[city].center,
+                radius: citymap[city].sum_otgr/22202 * 2000
+            });
+        }
+    }
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEOOgpMDoc-WOn_szLIoex4VcgwgddhxQ&signed_in=true&callback=initMap"></script>
+</body>
+</html>
